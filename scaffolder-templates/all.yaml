@@ -1,0 +1,10 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: software=templates
+  description: A collection of all Backstage software templates
+spec:
+  targets:
+    - ./react/template.yaml
+    # - ./python-flask/template.yaml
+    # - ./nodejs/templates.yaml
