@@ -5,6 +5,7 @@ metadata:
   description: A collection of all Backstage software templates
 spec:
   targets:
-    - ./react/template.yaml
+    - ./react-app/template.yaml
+    - ./nodejs-app/template.yaml
     # - ./python-flask/template.yaml
     # - ./nodejs/templates.yaml
