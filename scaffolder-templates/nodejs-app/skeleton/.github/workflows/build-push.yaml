@@ -1,0 +1,43 @@
+name: CI Build and Push
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    name: Build and Push Docker Image
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'  # Set the Node.js version you are using
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+      - name: 'Authenticate to Google Cloud'
+        uses: 'google-github-actions/auth@v0.4.0'
+        with:
+          workload_identity_provider: 'projects/{{ values.project_id}}/locations/global/workloadIdentityPools/my-pool/providers/my-provider'
+          service_account: '{{values.name}}-cicd-sa@my-project.iam.gserviceaccount.com'
+    
+      - name: Docker login
+        uses: 'docker/login-action@v1'
+        with:
+          username: 'oauth2accesstoken'
+          password: '${{ steps.auth.outputs.access_token }}'
+          registry: 'me-west1-docker.pkg.dev'
+
+      - name: Push Docker image to Google Artifact Registry
+        run: |
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/my-nodejs-app:${{ github.sha }}
