@@ -52,7 +52,7 @@ spec:
           title: Token
           type: string
           description: The token for the container registry
-          ui:widget: secret
+          ui:field: Secret
         
 
 
