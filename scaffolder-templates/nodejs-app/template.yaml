@@ -3,8 +3,10 @@ apiVersion: scaffolder.backstage.io/v1beta3
 kind: Template
 metadata:
   name: create-nodejs-app-template
-  title: Create Node.js App Template
+  title: Create NodeJS App Template
   description: An example template for the scaffolder that creates a simple Node.js service
+  tags:
+    - nodejs
 spec:
   owner: group:devops-team
   type: service
@@ -36,6 +38,23 @@ spec:
               - github.com
             allowedOwners:
               - danielyaba
+    - title: Fill in container registry credentials
+      required:
+        - registryUsername
+        - registryToken
+      properties:
+        registryUsername:
+          title: Username
+          type: string
+          description: The username for the container registry
+          ui:autofocus: false
+        registryToken:
+          title: Token
+          type: string
+          description: The token for the container registry
+          ui:widget: password
+        
+
 
   # These steps are executed in the scaffolder backend, using data that we gathered
   # via the parameters above.
@@ -57,6 +76,9 @@ spec:
         allowedHosts: ['github.com']
         description: This is ${{ parameters.name }}
         repoUrl: ${{ parameters.repoUrl }}
+        secrets:
+           DOCKERHUB_USERNAME: ${{ parameters.registryUsername }}
+           DOCKERHUB_TOKEN: ${{ parameters.registryToken }}
 
     # - id: github-action
     #   name: Trigger workflow
