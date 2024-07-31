@@ -1,7 +1,7 @@
 apiVersion: backstage.io/v1alpha1
 kind: Group
 metadata:
-  name: project-managers
+  name: project-managers-team
 spec:
   type: team
   children: []
