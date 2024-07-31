@@ -41,4 +41,4 @@ jobs:
           context: .
           tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_IMAGE_NAME }}:${{ env.DOCKER_IMAGE_TAG }}
           push: true
-          file: packages/backend/Dockerfile
+          file: Dockerfile
