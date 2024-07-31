@@ -1,0 +1,9 @@
+apiVersion: backstage.io/v1alpha1
+kind: Location
+metadata:
+  name: organization-data
+  description: A collection of all Backstage organization data
+spec:
+  targets:
+    - ./users/*.yaml
+    - ./groups/*.yaml
