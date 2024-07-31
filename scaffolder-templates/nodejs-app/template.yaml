@@ -34,6 +34,14 @@ spec:
           ui:options:
             allowedHosts:
               - github.com
+        owner:
+          title: Owner
+          type: string
+          description: The organization, user or project that this repo will belong to
+          ui:field: OwnerPicker
+          ui:options:
+            allowedOwners:
+              - danielyaba
 
   # These steps are executed in the scaffolder backend, using data that we gathered
   # via the parameters above.
@@ -55,6 +63,15 @@ spec:
         allowedHosts: ['github.com']
         description: This is ${{ parameters.name }}
         repoUrl: ${{ parameters.repoUrl }}
+
+    # - id: github-action
+    #   name: Trigger workflow
+    #   action: github:actions:dispath
+    #   input:
+    #     workflowId: build-push.yaml
+    #     repoUrl: ${{ steps['publish'].output.repoContentsUrl }}
+    #     branchOrTagName: 'master'
+
 
     # The final step is to register our new component in the catalog.
     - id: register
