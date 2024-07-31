@@ -34,12 +34,6 @@ spec:
           ui:options:
             allowedHosts:
               - github.com
-        owner:
-          title: Owner
-          type: string
-          description: The organization, user or project that this repo will belong to
-          ui:field: OwnerPicker
-          ui:options:
             allowedOwners:
               - danielyaba
 
