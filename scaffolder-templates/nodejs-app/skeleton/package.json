@@ -1,7 +1,6 @@
 {
   "name": "${{ values.name }}",
   "private": true,
-  "version": "1.0.0",
   "description": "A simple Node.js application",
   "main": "src/index.js",
   "scripts": {
