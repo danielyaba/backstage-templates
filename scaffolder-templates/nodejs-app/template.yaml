@@ -50,7 +50,7 @@ spec:
           ui:autofocus: false
         registryToken:
           title: Token
-          type: secret
+          type: string
           description: The token for the container registry
           ui:field: Secret
         
@@ -78,7 +78,7 @@ spec:
         repoUrl: ${{ parameters.repoUrl }}
         secrets:
            DOCKERHUB_USERNAME: ${{ parameters.registryUsername }}
-           DOCKERHUB_TOKEN: ${{ parameters.registryToken }}
+           DOCKERHUB_TOKEN: ${{ secrets.registryToken }}
 
     # - id: github-action
     #   name: Trigger workflow
