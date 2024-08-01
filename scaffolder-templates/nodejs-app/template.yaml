@@ -69,8 +69,8 @@ spec:
           - .github/workflows/*
         values:
           name: ${{ parameters.name }}
-          registryUsername: ${{ parameters.registryUsername }}
-          registryToken: ${{ secrets.registryToken }}
+          # registryUsername: ${{ parameters.registryUsername }}
+          # registryToken: ${{ secrets.registryToken }}
 
     # This step publishes the contents of the working directory to GitHub.
     - id: publish
