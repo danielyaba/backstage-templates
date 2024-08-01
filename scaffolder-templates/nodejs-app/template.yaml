@@ -84,14 +84,13 @@ spec:
            DOCKERHUB_USERNAME: ${{ parameters.registryUsername }}
            DOCKERHUB_TOKEN: ${{ secrets.registryToken }}
 
-    - id: github-action
-      name: Trigger workflow
-      action: github:actions:dispatch
-      input:
-        repoUrl: ${{ parameters.repoUrl }}
-        workflowId: build-push.yaml
-        branchOrTagName: 'master'
-
+    # - id: github-action
+    #   name: Trigger workflow
+    #   action: github:actions:dispatch
+    #   input:
+    #     repoUrl: ${{ parameters.repoUrl }}
+    #     workflowId: build-push.yaml
+    #     branchOrTagName: 'master'
 
     # The final step is to register our new component in the catalog.
     - id: register
