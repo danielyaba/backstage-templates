@@ -10,7 +10,7 @@ env:
   DOCKER_IMAGE_TAG: latest
 
 jobs:
-  build-and-push:
+  build-push:
     name: Build and Push Docker Image
     runs-on: ubuntu-latest
 
