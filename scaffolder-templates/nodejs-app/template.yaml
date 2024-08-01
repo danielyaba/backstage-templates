@@ -86,7 +86,7 @@ spec:
 
     - id: github-action
       name: Trigger workflow
-      action: github:actions:dispath
+      action: github:actions:dispatch
       input:
         workflowId: build-push.yaml
         repoUrl: ${{ steps['publish'].output.repoContentsUrl }}
