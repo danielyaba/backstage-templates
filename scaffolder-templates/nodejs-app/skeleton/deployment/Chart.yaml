@@ -1,0 +1,10 @@
+apiVersion: v2
+name: ${{ values.name }}
+description: A Helm chart for ${{ values.name }}
+version: 1.0.0
+appVersion: 1.0.0
+dependencies:
+  - name: kube-charts
+    version: 1.0.0
+    repository: oci://me-west1-docker.pkg.dev/dgt-gcp-gtst-service-mesh/kube-charts/kube-charts
+    condition: kube-charts.enabled
