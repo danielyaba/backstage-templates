@@ -88,7 +88,7 @@ spec:
       name: Trigger workflow
       action: github:actions:dispatch
       input:
-        repoUrl: ${{ parameters.repoUrl }}
+        repoUrl: ${{ steps['publish'].output.repoContentsUrl }}
         workflowId: build-push.yaml
         branchOrTagName: 'master'
 
