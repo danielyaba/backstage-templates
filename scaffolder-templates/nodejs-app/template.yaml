@@ -28,6 +28,7 @@ spec:
     - title: Choose a location
       required:
         - repoUrl
+        - gcpProjectId
       properties:
         repoUrl:
           title: Repository Location
@@ -38,21 +39,24 @@ spec:
               - github.com
             allowedOwners:
               - danielyaba
-    - title: Fill in container registry credentials
-      required:
-        - registryUsername
-        - registryToken
-      properties:
-        registryUsername:
-          title: Username
+        gcpProjectId:
+          titie: GCP Project ID
           type: string
-          description: The username for the container registry
-          ui:autofocus: false
-        registryToken:
-          title: Token
-          type: string
-          description: The token for the container registry
-          ui:field: Secret
+    # - title: Fill in container registry credentials
+    #   required:
+    #     - registryUsername
+    #     - registryToken
+    #   properties:
+    #     registryUsername:
+    #       title: Username
+    #       type: string
+    #       description: The username for the container registry
+    #       ui:autofocus: false
+    #     registryToken:
+    #       title: Token
+    #       type: string
+    #       description: The token for the container registry
+    #       ui:field: Secret
         
 
 
@@ -60,6 +64,25 @@ spec:
   # via the parameters above.
   steps:
     # Each step executes an action, in this case one templates files into the working directory.
+    # - id: install-gcloud-and-fetch-project-number
+    #   name: Install gcloud CLI and Fetch Project Number
+    #   action: shell:run
+    #   input:
+    #     script: |
+    #       #!/bin/bash
+    #       set -e
+
+    #       # Install gcloud SDK
+    #       echo "Installing gcloud CLI..."
+    #       curl https://sdk.cloud.google.com > install.sh
+    #       bash install.sh --disable-prompts
+
+    #       # Fetch the project number
+    #       echo "Fetching project number for project ID: ${{ parameters.gcpProjectId }}"
+    #       PROJECT_NUMBER=$(gcloud projects describe ${{ parameters.gcpProjectId }} --format="value(projectNumber)")
+    #       echo "Project Number: $PROJECT_NUMBER"
+    #       echo "::set-output name=projectNumber::$PROJECT_NUMBER"
+
     - id: fetch-base
       name: Fetch Base
       action: fetch:template
@@ -69,8 +92,6 @@ spec:
           - .github/workflows/*
         values:
           name: ${{ parameters.name }}
-          # registryUsername: ${{ parameters.registryUsername }}
-          # registryToken: ${{ secrets.registryToken }}
 
     # This step publishes the contents of the working directory to GitHub.
     - id: publish
@@ -81,16 +102,11 @@ spec:
         description: This is ${{ parameters.name }}
         repoUrl: ${{ parameters.repoUrl }}
         secrets:
-           DOCKERHUB_USERNAME: ${{ parameters.registryUsername }}
-           DOCKERHUB_TOKEN: ${{ secrets.registryToken }}
-
-    # - id: github-action
-    #   name: Trigger workflow
-    #   action: github:actions:dispatch
-    #   input:
-    #     repoUrl: ${{ parameters.repoUrl }}
-    #     workflowId: build-push.yaml
-    #     branchOrTagName: 'master'
+          #  DOCKERHUB_USERNAME: ${{ parameters.registryUsername }}
+          #  DOCKERHUB_TOKEN: ${{ secrets.registryToken }}
+           GCP_CICD_SA:  ${{ parameters.name }}@${{ parameters.gcpProjectId }}.iam.gserviceaccount.com
+           GCP_PROJECT_ID: ${{ parameters.gcpProjectId }}
+          #  GCP_PROJECT_NUMBER: ${{ steps['install-gcloud-and-fetch-project-number'].output.projectNumber }}
 
     # The final step is to register our new component in the catalog.
     - id: register
