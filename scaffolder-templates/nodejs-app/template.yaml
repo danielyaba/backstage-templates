@@ -42,23 +42,6 @@ spec:
         gcpProjectId:
           titie: GCP Project ID
           type: string
-    # - title: Fill in container registry credentials
-    #   required:
-    #     - registryUsername
-    #     - registryToken
-    #   properties:
-    #     registryUsername:
-    #       title: Username
-    #       type: string
-    #       description: The username for the container registry
-    #       ui:autofocus: false
-    #     registryToken:
-    #       title: Token
-    #       type: string
-    #       description: The token for the container registry
-    #       ui:field: Secret
-        
-
 
   # These steps are executed in the scaffolder backend, using data that we gathered
   # via the parameters above.
@@ -102,8 +85,6 @@ spec:
         description: This is ${{ parameters.name }}
         repoUrl: ${{ parameters.repoUrl }}
         secrets:
-          #  DOCKERHUB_USERNAME: ${{ parameters.registryUsername }}
-          #  DOCKERHUB_TOKEN: ${{ secrets.registryToken }}
            GCP_CICD_SA:  ${{ parameters.name }}@${{ parameters.gcpProjectId }}.iam.gserviceaccount.com
            GCP_PROJECT_ID: ${{ parameters.gcpProjectId }}
           #  GCP_PROJECT_NUMBER: ${{ steps['install-gcloud-and-fetch-project-number'].output.projectNumber }}
