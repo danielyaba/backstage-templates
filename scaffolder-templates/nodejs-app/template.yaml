@@ -42,6 +42,7 @@ spec:
         gcpProjectId:
           titie: GCP Project ID
           type: string
+          description: GCP Project ID for Artifact-Registry
 
   # These steps are executed in the scaffolder backend, using data that we gathered
   # via the parameters above.
@@ -84,6 +85,7 @@ spec:
         allowedHosts: ['github.com']
         description: This is ${{ parameters.name }}
         repoUrl: ${{ parameters.repoUrl }}
+        # repoVisibility: public
         secrets:
            GCP_CICD_SA:  ${{ parameters.name }}@${{ parameters.gcpProjectId }}.iam.gserviceaccount.com
            GCP_PROJECT_ID: ${{ parameters.gcpProjectId }}
