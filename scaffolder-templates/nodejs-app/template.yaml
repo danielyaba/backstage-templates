@@ -48,24 +48,23 @@ spec:
   # via the parameters above.
   steps:
     # Each step executes an action, in this case one templates files into the working directory.
-    # - id: install-gcloud-and-fetch-project-number
-    #   name: Install gcloud CLI and Fetch Project Number
-    #   action: shell:run
-    #   input:
-    #     script: |
-    #       #!/bin/bash
-    #       set -e
+    - id: install-gcloud-and-fetch-project-number
+      name: Install gcloud CLI and Fetch Project Number
+      action: shell:run
+      input:
+        script: |
+          #!/bin/bash
+          set -e
 
-    #       # Install gcloud SDK
-    #       echo "Installing gcloud CLI..."
-    #       curl https://sdk.cloud.google.com > install.sh
-    #       bash install.sh --disable-prompts
+          # Install gcloud SDK
+          echo "Installing gcloud CLI..."
+          curl https://sdk.cloud.google.com > install.sh
+          bash install.sh --disable-prompts
 
-    #       # Fetch the project number
-    #       echo "Fetching project number for project ID: ${{ parameters.gcpProjectId }}"
-    #       PROJECT_NUMBER=$(gcloud projects describe ${{ parameters.gcpProjectId }} --format="value(projectNumber)")
-    #       echo "Project Number: $PROJECT_NUMBER"
-    #       echo "::set-output name=projectNumber::$PROJECT_NUMBER"
+          # Fetch the project number
+          echo "Fetching project number for project ID: ${{ parameters.gcpProjectId }}"
+          PROJECT_NUMBER=$(gcloud projects describe ${{ parameters.gcpProjectId }} --format="value(projectNumber)")
+          echo "::set-output name=projectNumber::$PROJECT_NUMBER"
 
     - id: fetch-base
       name: Fetch Base
@@ -89,7 +88,7 @@ spec:
         secrets:
            GCP_CICD_SA:  ${{ parameters.name }}@${{ parameters.gcpProjectId }}.iam.gserviceaccount.com
            GCP_PROJECT_ID: ${{ parameters.gcpProjectId }}
-          #  GCP_PROJECT_NUMBER: ${{ steps['install-gcloud-and-fetch-project-number'].output.projectNumber }}
+           GCP_PROJECT_NUMBER: ${{ steps['install-gcloud-and-fetch-project-number'].output.projectNumber }}
 
     # The final step is to register our new component in the catalog.
     - id: register
