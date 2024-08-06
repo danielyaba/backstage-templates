@@ -1,4 +1,4 @@
-# ${{ values.name }} NodeJS application
+# ${{ values.name }} NodeJS Application
 
 ## Overview
 
@@ -43,8 +43,8 @@ Ensure you have the following installed:
 
 1. Clone the repository:
 ```
-git clone https://github.com/your-username/my-first-node-app
-cd my-first-node-app
+git clone https://github.com/your-username/${{ values.name }}
+cd ${{ values.name }}
 ```
 
 2. Install dependencies:
