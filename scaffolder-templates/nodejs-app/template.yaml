@@ -49,7 +49,7 @@ spec:
   steps:
     # Each step executes an action, in this case one templates files into the working directory.
     - id: install-gcloud-and-fetch-project-number
-      name: Install gcloud CLI and Fetch Project Number
+      name: Install GCLOUD-CLI and Fetch Project Number
       action: shell:run
       input:
         script: |
